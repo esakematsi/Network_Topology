@@ -1,0 +1,45 @@
+@startuml Topology Diagram
+
+title Topology Diagram 
+skinparam TitleFontColor #000000
+skinparam TitleFontSize 17
+
+
+skinparam Handwritten true
+skinparam backgroundColor #EDE8DC
+skinparam defaultFontName "Comic Sans MS"
+
+
+
+rectangle  Client_1 #C1CFA1 {
+     rectangle ip1 as "172.30.0.2" #E7CCCC
+}
+
+rectangle Client_2 #C1CFA1{
+    rectangle ip2 as "172.30.0.3" #E7CCCC
+}
+
+rectangle  Client_3 #C1CFA1{
+    rectangle ip3 as "172.30.0.4" #E7CCCC
+}
+
+rectangle  Client_4 #C1CFA1{
+    rectangle ip4 as "172.30.0.5" #E7CCCC
+}
+
+rectangle  Client_5 #C1CFA1 {
+    rectangle ip5 as "172.30.0.6" #E7CCCC
+    
+    
+
+}
+
+
+ip1<-right->ip2
+ip2<-down->ip3
+ip3<-left->ip4
+ip4<-up->ip1
+ip4<-down->ip5
+        
+
+@enduml

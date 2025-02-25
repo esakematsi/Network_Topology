@@ -1,0 +1,87 @@
+version: '3'
+services:
+  client1:
+    build:
+      context: .
+      dockerfile: Dockerfile.client
+    container_name: Client1
+    working_dir: /app
+    environment:
+      - NEXT_CLIENT=Client2
+      - PREV_CLIENT=Client4
+      - CLIENT_ID=Client1
+    command: "tail -f /dev/null"
+    networks:
+      topology_network:
+        ipv4_address: 172.30.0.2
+
+  client2:
+    build:
+      context: .
+      dockerfile: Dockerfile.client
+    container_name: Client2
+    working_dir: /app
+    environment:
+      - NEXT_CLIENT=Client3
+      - PREV_CLIENT=Client1
+      - CLIENT_ID=Client2
+    command: "tail -f /dev/null"
+    networks:
+      topology_network:
+        ipv4_address: 172.30.0.3
+
+  client3:
+    build:
+      context: .
+      dockerfile: Dockerfile.client
+    container_name: Client3
+    working_dir: /app
+    environment:
+      - NEXT_CLIENT=Client4
+      - PREV_CLIENT=Client2
+      - CLIENT_ID=Client3
+    command: "tail -f /dev/null"
+    networks:
+      topology_network:
+        ipv4_address: 172.30.0.4
+
+  client4:
+    build:
+      context: .
+      dockerfile: Dockerfile.client
+    container_name: Client4
+    working_dir: /app
+    environment:
+      - NEXT_CLIENT=Client1
+      - PREV_CLIENT=Client3
+      - CLIENT_ID=Client4
+      - CONN_CLIENT=Client5
+    command: "tail -f /dev/null"
+    networks:
+      topology_network:
+        ipv4_address: 172.30.0.5
+  
+
+  client5:
+    build:
+      context: .
+      dockerfile: Dockerfile.client
+    container_name: Client5
+    working_dir: /app
+    environment:
+      - CONN_CLIENT=Client4
+      - CLIENT_ID=Client5
+    command: "tail -f /dev/null"
+    networks:
+      topology_network:
+        ipv4_address: 172.30.0.6
+
+
+
+
+networks:
+  topology_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.30.0.0/16

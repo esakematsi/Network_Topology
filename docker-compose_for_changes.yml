@@ -1,0 +1,87 @@
+version: '3'
+services:
+  client1:
+    image: python:3.8-slim
+    container_name: Client1
+    volumes:
+      - .:/app
+    working_dir: /app
+    environment:
+      - NEXT_CLIENT=Client2
+      - PREV_CLIENT=Client4
+      - CLIENT_ID=Client1
+    command: "tail -f /dev/null"
+    networks:
+      ring_network:
+        ipv4_address: 172.30.0.2
+
+  client2:
+    image: python:3.8-slim
+    container_name: Client2
+    volumes:
+      - .:/app
+    working_dir: /app
+    environment:
+      - NEXT_CLIENT=Client3
+      - PREV_CLIENT=Client1
+      - CLIENT_ID=Client2
+    command: "tail -f /dev/null"
+    networks:
+      ring_network:
+        ipv4_address: 172.30.0.3
+
+  client3:
+    image: python:3.8-slim
+    container_name: Client3
+    volumes:
+      - .:/app
+    working_dir: /app
+    environment:
+      - NEXT_CLIENT=Client4
+      - PREV_CLIENT=Client2
+      - CLIENT_ID=Client3
+    command: "tail -f /dev/null"
+    networks:
+      ring_network:
+        ipv4_address: 172.30.0.4
+
+  client4:
+    image: python:3.8-slim
+    container_name: Client4
+    volumes:
+      - .:/app
+    working_dir: /app
+    environment:
+      - NEXT_CLIENT=Client1
+      - PREV_CLIENT=Client3
+      - CLIENT_ID=Client4
+      - CONN_CLIENT=Client5
+    command: "tail -f /dev/null"
+    networks:
+      ring_network:
+        ipv4_address: 172.30.0.5
+  
+
+  client5:
+    image: python:3.8-slim
+    container_name: Client5
+    volumes:
+      - .:/app
+    working_dir: /app
+    environment:
+      - CONN_CLIENT=Client4
+      - CLIENT_ID=Client5
+    command: "tail -f /dev/null"
+    networks:
+      ring_network:
+        ipv4_address: 172.30.0.6
+
+
+
+
+networks:
+  ring_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.30.0.0/16
