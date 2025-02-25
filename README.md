@@ -6,10 +6,10 @@ This project creates a networked environment where multiple clients, running ins
 
 
 ## Technologies Used
-- **Docker**  for containerized clients (one container per network client)
-- **Python**  for Socket programming, Threading & Acknowledgment messages
-- **Sockets** for network and client-to-client communication
-- **Multithreading** for handling concurrent connections
+- **Docker**  for containerized clients (one container per network client).
+- **Python**  for Socket programming, Threading & Acknowledgment messages.
+- **Sockets** for network and client-to-client communication.
+- **Multithreading** for handling concurrent connections.
 
 
 ## Installation
